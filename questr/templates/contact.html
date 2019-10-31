@@ -1,0 +1,258 @@
+{% extends "landingbase.html" %}
+{% load staticfiles %}
+{% block localhead %}
+<link href={% static "landingpage/flat-ui/bootstrap/css/bootstrap.css" %} rel="stylesheet">
+	     <link href={% static "landingpage/flat-ui/bootstrap/css/bootstrap-responsive.css" %} rel="stylesheet">
+	     <link href={% static "landingpage/flat-ui/css/flat-ui.css" %} rel="stylesheet">
+	    
+	     <!-- Using only with Flat-UI (free)-->
+	     <link href={% static "landingpage/common-files/css/icon-font.css" %} rel="stylesheet">
+	     <!-- end -->
+	     <link href={% static "landingpage/common-files/css/animations.css" %} rel="stylesheet">
+	     
+
+	    <link href={% static "landingpage/css/style.css" %} rel="stylesheet"> 	   
+	
+	     <link href={% static "landingpage/img/logo.png" %} rel="shortcut icon">
+	    
+	    <link href={% static "landingpage/css/font-awesome-4.2.0/css/font-awesome.min.css" %} rel="stylesheet">
+{% endblock localhead %}
+
+{% block content %}
+<!-- header-1 -->
+        <header class="header-1">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar span12">
+                        <div class="navbar-inner">
+                            <button type="button" class="btn btn-navbar"></button>
+                            	<a class="brand" href="{% url 'index' %}"><!--img src="img/logo@2x.png" width="50" height="50" alt="" --> QUESTR</a>
+                            <div class="nav-collapse collapse">
+                                <ul class="nav pull-right">
+                                    <li class="">
+		                                <a href="{% url 'index' %}">HOME</a>
+		                            </li>
+		                            <li>
+		                                <a href="#">GET A QUOTE</a>
+		                            </li>
+		                            <li>
+		                                <a href="{% url 'trackquest' %}">TRACK DELIVERY</a>
+		                            </li>
+                                </ul>
+                                <ul class="subnav">
+                                    <li>
+                                        <a href="#">Privacy</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Terms</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Advertise</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Affiliates</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Newsletter</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">About</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact Us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="header-1-sub">
+            <div id="pt-main" class="page-transitions pt-perspective">
+                <div class="pt-page pt-page-1 bg-midnight-blue">
+                    <div class="background">
+                        &nbsp;
+                    </div>
+                    <div class="caption">
+                        <div class="container">
+                    <h3>Contact Us.</h3>
+                    <p class="lead">
+                        We love hearing what you have to say
+                    </p>
+                   
+                </div>
+                    </div>
+                </div>
+               
+            
+            </div>
+        </section>
+
+
+<!-- contacts-1 -->
+    <section class="contacts-1">
+      <div class="container">
+        <div class="row">
+          <div class="span8">
+            <h3>Have something to say?<br>Email us below.</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span6">
+            <form action="{% url 'contactus' %}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form" target="_top" role="form" novalidate>{% csrf_token %}
+              <label class="h6">Name</label>
+              <input type="text" name="name" id="exampleInputName" placeholder="John Smith">
+              <label class="h6">E-mail</label>
+              <input type="email" name="email" id="exampleInputEmail1" placeholder="johnsmitty@example.com">
+              <label class="h6">Message</label>
+              <textarea name="message" rows="7" placeholder="Write stuff here..."></textarea>
+              <button type="submit" class="btn btn-primary"><span class="fui-mail"></span>
+              </button>
+            </form>
+          </div>
+          <div class="span4 offset1">
+            <div class="additional">
+              <h6>Need Help?</h6>
+              <p>Don’t hestiate to ask us something. Email us at <a href="#">hello@questr.co</a> or call us at <b>+1 (800) 277-0748</b>. You can checkout our <a href="#">FAQ</a> page to get more information about our services.</p>
+            </div>
+            <div class="additional">
+              <h6>Message Us @</h6>
+              <p>
+	              <ul>
+		              <li><a target="_blank" href="https://www.facebook.com/questrco">Facebook</a></li>
+		              <li><a target="_blank" href="https://twitter.com/questrco">Twitter</a></li>
+		              <li><a target="_blank" href="http://linkedin.com/company/questr">LinkedIn</a></li>
+		             {% comment %}
+		              <li><a class="wechat popover-right" data-container="body" data-toggle="popover" data-placement="right"><button type="button" class=""><i class="fa fa-wechat"></i></button></a></li>
+		              {% endcomment %}
+	              </ul>
+              </p>
+            </div>
+            <div class="phone">
+              <big>+1 (800) 277-0748</big>
+AVAILABLE 9AM - 11PM
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.container-->
+    </section>
+    
+      
+    <!-- footer-1 -->
+<footer class="footer-1 bg-midnight-blue">
+      <div class="container">
+        <div class="row">
+          <div class="span4">
+            <p class="lead">We are a proud supporter of the disabled community <i class="fa fa-wheelchair"></i></p>
+            Providing jobs for the disabled since 2014.
+            
+          </div>
+          <nav>
+            <div class="span2 offset1">
+              <h6>More</h6>
+              <ul>
+                {% comment %}
+              
+              <li>
+                  <a href="#">Blog</a>
+              </li>
+                <li>
+                    <a href={% url 'career' %}>Careers</a>
+                </li>
+
+                {% endcomment %}
+                <li>
+                    <a href="{% url 'about' %}">About Us</a>
+                </li>
+              <li>
+                    <a href="{% url 'faq' %}">FAQ</a>
+                </li>
+              <li>
+                  <a href={% url 'team' %}>Team</a>
+              </li>
+              <li>
+                  <a href="{% url 'contact' %}">Contact</a>
+              </li>
+                <li>
+                    <a href="{% url 'applyAsCourier' %}">Become a courier</a>
+                </li>
+          </ul>
+            </div>
+            <div class="span2">
+              <h6>Follow Us</h6>
+              <ul>
+                <li><a target="_blank" href="https://www.facebook.com/questrco">Facebook</a>
+                </li>
+                <li><a target="_blank" href="https://twitter.com/questrco">Twitter</a>
+                </li>
+                <li><a href="#">&nbsp;</a></li>
+                <li><a href="#">&nbsp;</a></li>
+                <li><a href="#">&nbsp;</a></li>
+                <li><a href="#">&nbsp;</a></li>
+              </ul>
+            </div>
+            <div class="span3" style="margin-left:0;padding-left:0;">
+            <h6>Subscribe to our newsletter</h6>
+            <form role="form" action="{% url 'join'%}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_top" novalidate style="width:100%;margin-left:0;padding-left:0;">{% csrf_token %}
+            <div class="control-group" style="width:100%;margin-left:0;padding-left:0;">
+                            <div class="input-append" style="width:100%;margin-left:0;padding-left:0;">
+                                <input name="EMAIL" type="email" id="address" placeholder="Enter your email" data-validate="validate(required, email)" required="required" style="min-width:100%;">
+                                <button class="btn" type="submit">
+                                    <span class="fui-arrow-right"> </span>
+                                </button>
+                            </div>
+                            <span id="result" class="alertMsg"></span>
+                        </div>
+            </form>
+            
+            
+          </div>
+          </nav>
+          
+        </div>
+        <div class="row">
+          <div class="span4 additional-links">
+            <a href="{% url 'terms' %}">Terms of Service</a>
+            <a href="{% url 'privacy' %}">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+{% endblock content %}
+{% block scripts %}
+<script>
+ $(function() {
+    $('.scrollto, .gototop').bind('click',function(event){
+		 var $anchor = $(this);
+		 $('html, body').stop().animate({
+         scrollTop: $($anchor.attr('href')).offset().top
+          }, 1500,'easeInOutExpo');
+     event.preventDefault();
+      });
+  });
+
+  var img = '<img src="{% static "img/contacts/wechat.jpeg" %}"/>';
+  
+  $(".popover-right").popover({
+			placement: 'right', 
+      title: 'Add Questr or scan the QR code below', 
+      content: img, 
+      html:true 
+		});
+</script>
+
+
+<script src={% static "landingpage/common-files/js/jquery-1.10.2.min.js" %}></script>
+	<script src={% static "landingpage/flat-ui/js/bootstrap.min.js" %}></script>
+	<script src={% static "landingpage/common-files/js/modernizr.custom.js" %}></script>
+	<script src={% static "landingpage/common-files/js/page-transitions.js" %}></script>
+	<script src={% static "landingpage/common-files/js/easing.min.js" %}></script>
+	<script src={% static "landingpage/common-files/js/jquery.svg.js" %}></script>
+	<script src={% static "landingpage/common-files/js/jquery.svganim.js" %}></script>
+	<script src={% static "landingpage/common-files/js/startup-kit.js" %}></script>
+	<script src={% static "landingpage/js/script.js" %}></script>
+    
+{% endblock scripts %}

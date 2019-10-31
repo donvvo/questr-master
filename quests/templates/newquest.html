@@ -1,0 +1,425 @@
+{% extends "mainbase.html" %}
+{% load staticfiles %}
+{% load active %}
+{% block localhead %}
+
+
+<link href={% static "landingpage/img/logo.png" %} rel="shortcut icon">
+<link href={% static "app/css/font-awesome-4.2.0/css/font-awesome.min.css" %} rel="stylesheet">
+<link href={% static "app/css/bootstrap.min.css" %} rel="stylesheet">
+<!-- Toastr style -->
+<link href={% static "app/css/plugins/toastr/toastr.min.css" %} rel="stylesheet">
+<!-- Gritter --> 
+<link href={% static "app/js/plugins/gritter/jquery.gritter.css" %} rel="stylesheet">  
+<!-- Switchery -->
+<link href={% static "app/css/plugins/switchery/switchery.css" %} rel="stylesheet">
+
+<!-- Toastr style -->
+<link href={% static "app/css/plugins/toastr/toastr.min.css" %} rel="stylesheet">
+
+<!-- Gritter --> 
+<link href={% static "app/js/plugins/gritter/jquery.gritter.css" %} rel="stylesheet">  
+<!-- Switchery -->
+<link href={% static "app/css/plugins/switchery/switchery.css" %} rel="stylesheet">
+
+<link href={% static "app/css/plugins/jasny/jasny-bootstrap.min.css" %} rel="stylesheet">
+
+<link href={% static "app/css/animate.css" %} rel="stylesheet">
+<link href={% static "app/css/style.css" %} rel="stylesheet">
+
+
+
+{% endblock localhead %}
+{% block content %}
+
+
+<div class="row" style="margin-bottom:200px;">
+	<form role="form" action="{% url 'newquest' %}" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+		<div class="col-lg-10">
+			<div class="wrapper wrapper-content animated fadeInUp" style="background:white;">
+
+
+				<div class="ibox white-bg" >
+					<div class="ibox-title">
+						<h5>Create your new quest</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							
+							<div class="col-sm-12">
+								<p>* are required fields</p>
+								<label class="control-label">Title *</label>
+								{{user_form.title}}
+								<span class="help-block m-b-none">{{user_form.title.errors}}</span>
+							</div>
+							
+							<div class="col-sm-12">
+								<label class="control-label">Description</label>
+									{{user_form.description}}
+									<span class="help-block m-b-none"></span>
+							</div>	
+							
+							
+	
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-12">
+							<label class="control-label">Size *</label>
+							<div class="input-group">
+									<div class="input-group form-inline">
+	                        {% comment %}
+							<label class="radio-inline">
+							  <input type="radio" id="inlineCheckbox1" name="size" ng-model="user.size" value="backpack" ng-model="user.backapck" checked required> CARRIABLES
+							</label>
+							{% for choice in user_form.size.field.choices %}
+							<label class="radio-inline">
+								<input type="radio" id="inlineCheckbox{{choice.count}}" name="{{user_form.size.name}}" value="{{choice.0}}" checked>{{choice.1}}
+							</label>
+							{% endfor %}
+							{% endcomment %}
+									{% for choice in user_form.size.field.choices %}
+									<label class="radio-inline">
+										<input type="radio" id="inlineCheckbox{{choice.count}}" name="{{user_form.size.name}}" value="{{choice.0}}" checked style="visibility:hidden;">
+										<div id="radioBtn" class="btn-group">
+									    <a class="btn btn-info btn-sm active" data-toggle="fun" data-title="{{choice.1}}" checked>
+									    <i class="fa fa-{{choice.1.lower}}"></i> {{choice.1}}
+									   	</a>									
+									</div><!-- /input-group -->
+									</label>
+									{% endfor %}
+
+
+												                                    {% comment %}
+									<div id="radioBtn" class="btn-group">
+									    <a class="btn btn-primary btn-sm active" data-toggle="fun" data-title="envelope" type="radio" id="inlineCheckbox2" name="size" ng-model="user.size" value="car" ng-model="user.car" required checked>
+									    <i class="fa fa-envelope-o"></i>Envelope
+									   	</a>									
+									</div><!-- /input-group -->												                                    
+												                                    <div id="radioBtn" class="btn-group">
+									    					<a class="btn btn-primary btn-sm active" data-toggle="fun" data-title="envelope" type="radio" id="inlineCheckbox2" name="size" ng-model="user.size" value="car" ng-model="user.car" required checked><i class="fa fa-envelope-o"></i> Envelope</a>
+									    														    					
+									    					<a class="btn btn-primary btn-sm" data-toggle="fun" data-title="folder" type="radio" id="inlineCheckbox2" name="size" ng-model="user.size" value="car" ng-model="user.car" required><i class="fa fa-folder-o"></i> Folder</a>
+									    					
+									    					<a class="btn btn-primary btn-sm" data-toggle="fun" data-title="suitcase" type="radio" id="inlineCheckbox2" name="size" ng-model="user.size" value="car" ng-model="user.car" required><i class="fa fa-suitcase"></i> Suitcase</a>
+									    					
+									    					<a class="btn btn-primary btn-sm" data-toggle="fun" data-title="filingbox" type="radio" id="inlineCheckbox2" name="size" ng-model="user.size" value="car" ng-model="user.car" required><i class="fa fa-archive"></i> Filing Box</a>
+									    					
+									    					<a class="btn btn-primary btn-sm" data-toggle="fun" data-title="movingbox" type="radio" id="inlineCheckbox2" name="size" ng-model="user.size" value="car" ng-model="user.car" required><i class="fa fa-cube"></i> Moving Box (dimensions and over)</a>
+									    					
+									    				</div>
+									    				{% endcomment %}
+				    			</div>
+    							<span class="help-block m-b-none">{{user_form.size.errors}}</span>
+				    		</div>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="hr-line-dashed"></div>
+					    	<label class="control-label">
+					    	Tell us where to pick up the package.  Click 
+					    	<a id="autofill" onclick="reply_click(this.id)">here</a> to autofill your information.
+					    	</label> 
+					    	<div class="hr-line-dashed"></div>
+						</div>
+						
+						
+						
+						<div class="col-sm-6">
+					    	<label class="control-label">Name of Sender *</label>
+				    		
+					    		{{user_form.srcname}}	
+					    		<span class="help-block m-b-none">{{user_form.srcname.errors}}</span>
+						</div>
+						
+						<div class="col-sm-6">
+							<label class="control-label">Phone # *</label>
+				    		
+								{{user_form.srcphone}}
+					    		<span class="help-block m-b-none">{{user_form.srcphone.errors}}</span>	
+						</div>
+						
+						
+						<div class="col-sm-12">
+					    	<label class="control-label">Address Line 1 *</label>
+				    		
+				    			{{user_form.srcaddress}}
+					    		<span class="help-block m-b-none">{{user_form.srcaddress.errors}}</span>
+						</div>
+						
+						
+						<div class="col-sm-12">
+				    	
+					    	<label class="control-label">Address Line 2</label>
+					    		
+									{{user_form.srcaddress_2}}
+						    		<span class="help-block m-b-none">{{user_form.srcaddress_2.errors}}</span>
+						</div>
+						
+						
+						
+						<div class="col-sm-4">
+				    		<label class="control-label">City *</label>
+				    		
+								{{user_form.srccity}}
+				    			<span class="help-block m-b-none">{{user_form.srccity.errors}}</span>
+				    	
+				    		
+				    	</div>
+				    	
+				    	<div class="col-sm-4">
+				    	
+				    	</div>
+				    	
+				    	<div class="col-sm-4">
+				    		<label class="control-label">Postal Code *</label>
+				    		
+					    		{{user_form.srcpostalcode}}
+					    		<span class="help-block m-b-none">{{user_form.srcpostalcode.errors}}</span>
+				    	</div>
+				    	
+				    	
+				    	
+				    	<div class="col-sm-12">
+				    		<div class="hr-line-dashed"></div>
+					    	<label class="control-label">
+					    	Tell us where to drop off the package, and who we should give it to.
+					    	</label> 
+					    	<div class="hr-line-dashed"></div>
+				    	</div>
+				    	
+				    	
+				    	
+				    	<div class="col-sm-6">
+					    	<label class="control-label">Name of Reciever *</label>
+				    		
+								{{user_form.dstname}}
+					    		<span class="help-block m-b-none">{{user_form.dstname.errors}}</span>
+				    	</div>
+				    	
+				    	
+				    	<div class="col-sm-6">
+				    		<label class="control-label">Phone # *</label>
+				    		
+								{{user_form.dstphone}}
+						    	<span class="help-block m-b-none">{{user_form.dstphone.errors}}</span>
+				    	</div>
+				    	
+				    	
+				    	
+				    	<div class="col-sm-12">
+				    	
+					    	<label class="control-label">Address Line 1 *</label>
+				    		
+								{{user_form.dstaddress}}
+								<span class="help-block m-b-none">{{user_form.dstaddress.errors}}</span>
+				    	
+				    	</div>
+				    	
+				    	<div class="col-sm-12">
+				    	
+					    	<label class="control-label">Address Line 2</label>
+				    		
+								{{user_form.dstaddress_2}}
+					    		<span class="help-block m-b-none">{{user_form.dstaddress_2.errors}}</span>
+				    	</div>
+
+				    	
+				    	<div class="col-sm-4">
+					    	<label class="control-label">City *</label>
+				    		
+								{{user_form.dstcity}}
+				    			<span class="help-block m-b-none">{{user_form.dstcity.errors}}</span>
+				    	</div>
+				    	
+				    	<div class="col-sm-4"></div>
+				    			
+				    			<div class="col-sm-4">
+				    
+				    		<label class="control-label">Postal Code *</label>
+				    
+								{{user_form.dstpostalcode}}
+					    		<span class="help-block m-b-none">{{user_form.dstpostalcode.errors}}</span>
+			
+				    			</div>
+				    	
+		
+						</div>
+
+
+					
+					
+						
+
+
+
+
+						{% comment %}
+							<div class="form-group"><label class="col-sm-2 control-label">Quantity</label>
+								<div class="col-sm-4">
+									<select class="form-control m-b" data-size="5" name="quantity" id="quantity">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+										<option>11</option>
+										<option>12</option>
+										<option>13</option>
+										<option>14</option>
+										<option>15</option>
+										<option>16</option>
+										<option>17</option>
+										<option>18</option>
+										<option>19</option>
+										<option>20</option>
+									</select> 
+									<span class="help-block m-b-none"></span>
+								</div>
+							</div>
+						{% endcomment %}
+
+
+						
+						<div class="hr-line-dashed"></div>
+						<button type="submit" class="btn btn-lg btn-info" id="continue" ng-disabled="form.$invalid || isUnchanged(user)">CONTINUE</button>
+				    			
+				    			
+				    		
+					</div>
+				</div>
+			</div>
+		</div>	
+	
+
+		
+	</form>
+</div>
+
+
+
+
+
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="wrapper wrapper-content">
+			<div class="row">
+				<div class="col-lg-4">
+
+
+				</div>
+				<div class="col-lg-4">
+
+
+				</div>
+				<div class="col-lg-4">
+
+				</div>
+
+			</div>
+		</div>
+		<div class="footer">
+			<div class="pull-right">
+
+			</div>
+			<div>
+				Powered by <a href="http://earthand.co/en/" target="_blank">Earth and Co</a> &copy; 2014-2015
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+{% comment %}
+
+<div class="form-inline"> 
+                        <input id="promocode" name="promocode" type="text" placeholder="" class="form-control input-xs">
+                        <button class="btn btn-default">Apply</button>
+                    </div>
+
+
+<button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> | Add another reciever</button>
+
+
+
+{% endcomment %}
+
+
+{% endblock content %}
+
+
+{% block scripts %}
+<!-- Mainly scripts -->
+<script src={% static "app/js/jquery-2.1.1.js" %}></script>
+<script src={% static "app/js/bootstrap.min.js" %}></script>
+<script src={% static "app/js/plugins/metisMenu/jquery.metisMenu.js" %}></script>
+<script src={% static "app/js/plugins/slimscroll/jquery.slimscroll.min.js" %}></script>
+
+<!-- Flot -->
+<script src={% static "app/js/plugins/flot/jquery.flot.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.tooltip.min.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.spline.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.resize.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.pie.js" %}></script>
+
+<!-- Peity -->
+<script src={% static "app/js/plugins/peity/jquery.peity.min.js" %}></script>
+<script src={% static "app/js/demo/peity-demo.js" %}></script>
+
+
+<!-- Custom and plugin javascript -->
+<script src={% static "app/js/inspinia.js" %}></script>
+<script src={% static "app/js/plugins/pace/pace.min.js" %}></script>
+
+<!-- jQuery UI -->
+<script src={% static "app/js/plugins/jquery-ui/jquery-ui.min.js" %}></script>
+
+<!-- GITTER -->
+<script src={% static "app/js/plugins/gritter/jquery.gritter.min.js" %}></script>
+
+<!-- Sparkline -->
+<script src={% static "app/js/plugins/sparkline/jquery.sparkline.min.js" %}></script>
+
+<!-- Sparkline demo data  -->
+<script src={% static "app/js/demo/sparkline-demo.js" %}></script>
+
+<!-- ChartJS-->
+<script src={% static "app/js/plugins/chartJs/Chart.min.js" %}></script>
+
+<!-- Toastr -->
+<script src={% static "app/js/plugins/toastr/toastr.min.js" %}></script>
+
+<!-- Switchery -->
+<script src={% static "app/js/plugins/switchery/switchery.js" %}></script>
+
+<!-- Input Mask-->
+<script src={% static "app/js/plugins/jasny/jasny-bootstrap.min.js" %}></script>
+
+<script type="text/javascript">
+	$('#radioBtn a').on('click', function(){
+	    var sel = $(this).data('title');
+	    var tog = $(this).data('toggle');
+	    $('#'+tog).prop('value', sel);
+	    
+	    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+	    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+	})
+</script>
+
+{% endblock scripts %}

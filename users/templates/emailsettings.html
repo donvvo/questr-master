@@ -1,0 +1,65 @@
+{% extends "settings.html" %}
+{% block tabcontent %}
+<div class="tab-pane active text-style" id="tab3">
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+      	<div class="panel panel-default shadows body-borders top-margin">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading text-center">
+			  <div class="panel-title lead">Email notifications</div>  
+		  </div>
+		  <div class="panel-body">
+
+        <form class="form-horizontal" action="{% url 'notificationsettings' %}" method="post" >{% csrf_token %}
+          <h5>I want to receive notifications for quests with below sizes</h5>
+          <div class="checkbox">
+            <label>
+              <input id="package" type="checkbox" name="package" value="backpack">
+              Backpack
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input id="package" type="checkbox" name="package" value="car">
+              Car
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input id="package" type="checkbox" name="package" value="minivan">
+              Minivan
+            </label>
+          </div>
+
+          <hr>
+
+          <h5>I want to receive notifications when: </h5>
+          <div class="checkbox">
+            <label>
+              <input id="notif" type="checkbox" name="notif" value="newquest">
+              Someone posts a new quest.
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input id="notif" type="checkbox" name="notif" value="applyquest">
+              My posted quests are applied
+            </label>
+          </div>
+          
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 column text-center">
+          <button type="submit" class="btn btn-default">Save</button>
+        </div><!-- ./column -->
+        </form>
+		  </div>
+      	</div>
+      </div>
+    </div>
+</div>
+</div>
+
+{% endblock tabcontent %}
+

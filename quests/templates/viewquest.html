@@ -1,0 +1,147 @@
+{% extends "mainbase.html" %}
+{% load staticfiles %}
+{% block localhead %}
+
+    
+    
+{% endblock localhead %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-10">
+                <div class="wrapper wrapper-content animated fadeInUp">
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                           
+                        </div>
+                        <div class="ibox-content">
+                        <div class="row">
+                        
+                        	<div class="col-lg-3">
+	                        		{% if not questdetails.item_images %}
+						        <h1 style="font-size:50px;"><i class="fa fa-picture-o"></i></h1>
+								{% else %}
+				            
+					            <a data-target="#lightbox" data-toggle="modal" href="#">
+						            <img alt="itemImage" class="itemImage img-rounded" src="{{questdetails.get_item_images_normal_url}}">
+					            </a>
+					            {% endif %}
+								
+								<h6 class="inline">Size: </h6>
+								<p class="inline">{{questdetails.size}}</p>
+                        	</div>
+	                       
+	                        <div class="col-lg-6">
+		                        <h5>{% if isOwner %}
+									<span class="label label-info no-margin">{{questdetails.status}} </span>
+								{% endif %}
+								</h5>
+								<h4 class="inline">{{questdetails.title}}</h4>
+								
+					   
+					   
+									    {# Only allowing shippers to view addresses #}
+										{% if user.is_shipper or isOwner %}
+										<br>
+										
+										<h6 class="inline">Pays:</h6>
+										<p class="inline">${{questdetails.reward}}</p>
+										<br>
+										
+										<h6 class="inline">Delivery Code: </h6>
+										<p class="inline">{{questdetails.delivery_code}}</p>
+										<br>
+			
+										<h6 class="inline">Departure Address: </h6>
+										<p class="inline">{{questdetails.pickup.address}}, {{questdetails.pickup.city}}</p>
+										<br>
+									
+										<h6 class="inline">Destination Address: </h6>
+										<p class="inline">{{questdetails.dropoff.address}}, {{questdetails.dropoff.city}}</p>
+										{# <a href="#"><small class="light-grey" id="btn-map">view map <i class="fa fa-caret-down"></i></small></a> #}
+															<img alt="itemImage" class="img-responsive" src="{{questdetails.map_image}}">
+															{% endif %}
+			
+			
+			
+										 
+										<h6 class="inline">Description:</h6>
+										<p>{{questdetails.description}}</p>
+	                        </div>
+	                                 
+	                        <div class="col-lg-3">
+		                        {% comment %}
+									<a href="/user/{{questdetails.questrs.displayname}}"></a>	
+								{% endcomment %}
+								
+								
+									<strong id="username">{{questdetails.questrs.first_name}} {{questdetails.questrs.last_name}}</strong>
+							
+								
+									<h6 class="inline"><i class="fa fa-clock-o"></i> {{questdetails.creation_date}}</h6>
+									<h6><span class="glyphicon glyphicon-map-marker"></span> {{questdetails.location}}, Canada</h6> 
+									<h6>{{questdetails.questrs.phone}}</h6>
+					           </div>
+                                
+                                
+                        </div>
+                                
+                        </div>
+                    </div>
+                    
+                     
+                </div>
+            </div>
+</div>
+
+
+	    
+	    {% endblock content %}		
+
+{% block scripts %} 
+<!-- Mainly scripts -->
+<script src={% static "app/js/jquery-2.1.1.js" %}></script>
+<script src={% static "app/js/bootstrap.min.js" %}></script>
+<script src={% static "app/js/plugins/metisMenu/jquery.metisMenu.js" %}></script>
+<script src={% static "app/js/plugins/slimscroll/jquery.slimscroll.min.js" %}></script>
+
+<!-- Flot -->
+<script src={% static "app/js/plugins/flot/jquery.flot.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.tooltip.min.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.spline.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.resize.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.pie.js" %}></script>
+
+<!-- Peity -->
+<script src={% static "app/js/plugins/peity/jquery.peity.min.js" %}></script>
+<script src={% static "app/js/demo/peity-demo.js" %}></script>
+
+
+<!-- Custom and plugin javascript -->
+<script src={% static "app/js/inspinia.js" %}></script>
+<script src={% static "app/js/plugins/pace/pace.min.js" %}></script>
+
+<!-- jQuery UI -->
+<script src={% static "app/js/plugins/jquery-ui/jquery-ui.min.js" %}></script>
+
+<!-- GITTER -->
+<script src={% static "app/js/plugins/gritter/jquery.gritter.min.js" %}></script>
+
+<!-- Sparkline -->
+<script src={% static "app/js/plugins/sparkline/jquery.sparkline.min.js" %}></script>
+
+<!-- Sparkline demo data  -->
+<script src={% static "app/js/demo/sparkline-demo.js" %}></script>
+
+<!-- ChartJS-->
+<script src={% static "app/js/plugins/chartJs/Chart.min.js" %}></script>
+
+<!-- Toastr -->
+<script src={% static "app/js/plugins/toastr/toastr.min.js" %}></script>
+
+<!-- Switchery -->
+<script src={% static "app/js/plugins/switchery/switchery.js" %}></script>
+
+
+
+{% endblock scripts %}

@@ -1,0 +1,262 @@
+{% extends "mainbase.html" %}
+{% load staticfiles %}
+{% load active %}
+{% block localhead %}
+<link href={% static "css/bootstrap-datetimepicker.min.css" %} rel="stylesheet">
+
+<style>
+      #map-canvas {
+        height: 600px;
+        width: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script>
+  var directionsDisplay;
+  var directionsService = new google.maps.DirectionsService();
+  var map;
+
+
+  function initialize() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+
+    var mapOptions = {
+      zoom:7,
+      center: new google.maps.LatLng(-3.0758, 37.3533),
+      disableDefaultUI: true,
+      scrollwheel: false,
+      zoomControl:true
+    };
+
+
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    directionsDisplay.setMap(map);
+
+      var request = {
+        origin: "{{srcaddress}}, {{srccity}}, {{srcpostalcode}}",
+        destination: "{{dstaddress}}, {{dstcity}}, {{dstpostalcode}}",
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    });
+  }
+
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+    </script>
+
+
+{% endblock localhead %}
+{% block content %}
+
+
+
+<div class="container-fluid">
+  
+   
+  
+
+  <div class="row clearfix">
+  <form role="form" action="{% url 'confirmquest' %}" method="post" enctype="multipart/form-data" name="form" ng-submit="submitForm()" novalidate>{% csrf_token %}
+    <input type="hidden" name="title" value="{{title}}">
+    <input type="hidden" name="description" value="{{description}}">
+    <input type="hidden" name="reward" value="{{reward}}">
+    <input type="hidden" name="size" value="{{size}}">
+    <input type="hidden" name="distance" value="{{distance}}">
+    <input type="hidden" name="srcaddress" value="{{srcaddress}}">
+    <input type="hidden" name="srcaddress_2" value="{{srcaddress_2}}">
+    <input type="hidden" name="srccity" value="{{srccity}}">
+    <input type="hidden" name="srcpostalcode" value="{{srcpostalcode}}">
+    <input type="hidden" name="srcname" value="{{srcname}}">
+    {% if srcphone %}
+    <input type="hidden" name="srcphone" value="{{srcphone}}">      
+    {% endif %}
+    <input type="hidden" name="dstaddress" value="{{dstaddress}}">
+    <input type="hidden" name="dstaddress_2" value="{{dstaddress_2}}">
+    <input type="hidden" name="dstcity" value="{{dstcity}}">
+    <input type="hidden" name="dstpostalcode" value="{{dstpostalcode}}">
+    <input type="hidden" name="dstname" value="{{dstname}}">
+    {% if dstphone %}
+    <input type="hidden" name="dstphone" value="{{dstphone}}">      
+    {% endif %}
+    
+    
+    
+    
+      <!-- POSTAL CODE INPUT -->
+        <div class="form-group col-xs-6 col-sm-6 col-md-3 col-lg-3 column" style="display:none;">
+                    <div class="radio">       
+          <label>
+            <input class="radio-inline" type="radio" name="pickup_time" id="inlineRadio1" value="now" checked>
+                      Now
+          </label>
+                </div>
+        </div><!-- POSTAL CODE INPUT --> 
+    
+    <!-- PHONE NUMBER -->
+        <div class="form-group col-xs-12 col-sm-12 col-md-5 col-lg-5 column" style="display:none;">
+                    <div class="radio">
+               <label>
+                        <input class="radio-inline" type="radio" name="pickup_time" id="customTime" value="not_now">
+                        Choose another time
+                        <select name="pickup_when" data-size="2">
+                                <option name="">Today</option>
+                                <option name="">Tomorrow</option>
+                        </select>
+                        <br>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker4'>
+                                <input type='text' name="not_now_pickup_time" class="form-control" name="" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                        </div>
+          </label>
+                    </div><!-- radio -->        
+        </div><!-- PHONE NUMBER -->
+
+<div class="row">
+	<div class="col-lg-10">
+                <div class="wrapper wrapper-content animated fadeInUp">
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                           <h5>Confirm your delivery</h5>
+                        </div>
+                        <div class="ibox-content">
+                        
+                            
+    <div id="map-canvas"></div>
+
+
+            <h4>{{title|title}}</h4>
+             <p>{{description}}</p>
+        
+            <hr>
+            <h6>DELIVERY <br></h6>
+
+
+
+            <!-- FROM/TO -->
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <p><strong>From </strong>{{srcname}} {% if srcphone %} ({{srcphone}})
+                    {% endif %}<br>{% if srcaddress_2 %}
+                      {{srcaddress_2}}
+                    {% endif %} {{srcaddress}}, {{srccity}}, {{srcpostalcode}}<br><br><strong>To</strong> {{dstname}} {% if dstphone %} ({{dstphone}})
+                    {% endif %}<br>{% if dstaddress_2 %}
+                      {{dstaddress_2}}
+                    {% endif %} {{dstaddress}}, {{dstcity}}, {{dstpostalcode}}</p>
+                </div>
+            </div>
+            <hr>
+             <h6>DETAILS <br></h6>
+             <!-- SIZE -->
+             <div class="row clearfix">
+                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                     <p><strong>Size </strong></p>
+                 </div>
+                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                     <p>{{size.title}}</p>
+                 </div>
+             </div>
+             <div class="row clearfix">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <p><strong>Distance </strong></p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <p>{{distance}}km</p>
+                </div>
+            </div>
+            <hr>
+            {% comment %}
+            <!-- DELIVERY FEE -->
+            <div class="row clearfix">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <p><strong>Delivery Fee</strong></p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <p></p>
+                </div>
+            </div>
+            <!-- SERVICE FEE -->
+            <div class="row clearfix">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <p><strong>Service Fee</strong></p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <p>$3.00</p>
+                </div>
+            </div>
+            {% endcomment %}
+
+           
+           
+            <!-- PROMO CODE -->
+            <div class="row clearfix">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <h3>TOTAL</h3>
+                    
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 column">
+                    <h3>${{reward}}</h3>
+                </div>
+            </div>
+      <br><br><br>
+            {# <center><button type="submit" class="btn btn-lg btn-rounded">CONFIRM</button></center> #}
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="{{stripekey}}"
+              data-image="https://s3.amazonaws.com/stripe-uploads/acct_14WW18ALAbroQ4lcmerchant-icon-180416-0.png"
+              data-name="questr.co"
+              data-description="2 widgets"
+              data-currency="cad"
+              data-amount="{{stripereward}}">
+            </script>
+
+                                
+                        </div>
+                    </div>
+                    
+                     
+                </div>
+            </div>
+</div>
+
+
+      
+
+      
+
+  </form>
+</div><!-- ./row -->
+    
+</div><!-- ./container -->
+
+{% endblock content %}
+{% block scripts %}
+
+
+
+<script type="text/javascript">
+
+    function reply_click(clicked_id)
+    {
+        if(clicked_id == "autofill")
+        {
+            document.getElementById('srcaddress').value = "{{userdetails.address.streetaddress}}";
+            document.getElementById('srcpostalcode').value = "{{userdetails.address.postalcode}}";
+            document.getElementById('srcphone').value = "{{userdetails.phone}}";
+            document.getElementById('srcname').value = "{{userdetails.get_full_name}}";
+        }
+    }    
+</script>
+{% endblock scripts %}

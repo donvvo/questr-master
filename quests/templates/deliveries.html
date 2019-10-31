@@ -1,0 +1,316 @@
+{% extends "mainbase.html" %}
+{% load staticfiles endless tz %}
+{% block localhead %}
+
+{% endblock localhead %}
+{% block content %}
+<div class="row  border-bottom white-bg dashboard-header">
+
+</div>
+
+<div class="row" style="margin-bottom:200px;">
+    <div class="col-lg-6">
+        <div class="wrapper wrapper-content animated fadeInUp">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Current Deliveries</h5>
+                    <div class="ibox-tools">
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+
+                    <div class="project-list">
+
+                        <table class="table table-hover">
+                            <tbody>
+                             <!-- ACTIVE QUESTS -->
+
+                          {% if not user.is_shipper %}
+                          <!-- List group -->
+                              {% if activequests %}
+                                  {% for acceptedquests in activequests %}
+                                  <tr>
+                                    <td class="project-status">
+                                        <span class="label label-primary">Active</span>
+                                    </td>
+                                    <td class="project-title">
+                                        <a href="/quests/{{acceptedquests.id}}">{{acceptedquests.title | title}}</a>
+                                        <br/>
+                                        <small>Created {% localtime on%} {{acceptedquests.creation_date | timesince }} at {% endlocaltime %}</small>
+                                    </td>
+                                    <td class="project-completion">
+                                        <small>28% Complete</small>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 28%;" class="progress-bar"></div>
+                                        </div>
+                                    </td>
+
+                                    <td class="project-actions">
+                                        <small>${{acceptedquests.reward}}</small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+
+                            <tr>
+                                <td class="project-title text-center">
+                                 You don't have any active deliveries.                       
+                                </td>
+                            </tr>
+
+                            {% endif %}
+
+                        {% else %}
+                        {% if activequests %}
+                            {% for acceptedquests in activequests %}
+                            <tr>
+                              <td class="project-status">
+                                  <span class="label label-primary">Active</span>
+                              </td>
+                              <td class="project-title">
+                                  <a href="/quests/{{acceptedquests.id}}">{{acceptedquests.title | title}}</a>
+                                  <br/>
+                                  <small>Created {% localtime on%} {{acceptedquests.creation_date | timesince }} at {% endlocaltime %}</small>
+                              </td>
+                              <td class="project-completion">
+                                  <small>28% Complete</small>
+                                  <div class="progress progress-mini">
+                                      <div style="width: 28%;" class="progress-bar"></div>
+                                  </div>
+                              </td>
+
+                              <td class="project-actions">
+                                  <small>${{acceptedquests.reward}}</small>
+                              </td>
+                            </tr>
+                            {% endfor %}
+                          {% else %}
+
+                          <tr>
+                              <td class="project-title text-center">
+                               You don't have any pending deliveries.                       
+                              </td>
+                          </tr>
+
+                          {% endif %}
+                        {% endif %}
+
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </div>
+</div>
+</div>
+
+
+<div class="col-lg-6">
+    <div class="wrapper wrapper-content animated fadeInUp">
+
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Completed Deliveries</h5>
+                <div class="ibox-tools">
+
+                </div>
+            </div>
+            <div class="ibox-content">
+
+
+                <div class="project-list">
+
+                    <table class="table table-hover">
+                        <tbody>
+
+                          {% if not user.is_shipper %}
+
+                            <!-- HISTORY TRANSACTIONS -->
+                            {% if pastquests %}
+                                {% for completedquests in pastquests %}
+                                <tr>
+                                    <td class="project-status">
+                                        <span class="label label-primary">Active</span>
+                                    </td>
+                                    <td class="project-title">
+                                        <a href="/quest/{{completedquests.id}}">{{completedquests.title | title}}</a>
+                                        <br/>
+                                        <small>Job Accepted on day at time</small>
+                                    </td>
+                                    <td class="project-completion">
+                                        <small>28% Complete</small>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 28%;" class="progress-bar"></div>
+                                        </div>
+                                    </td>
+
+                                    <td class="project-actions">
+                                      <small>${{completedquests.reward}}</small>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <tr>
+                                    <td class="project-title text-center">
+                                        Your deliveries have not been delivered yet.
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+
+                    {% else %}
+                    {% if pastquests %}
+                        {% for completedquests in pastquests %}
+                        <tr>
+                            <td class="project-status">
+                                <span class="label label-primary">Active</span>
+                            </td>
+                            <td class="project-title">
+                                <a href="/quest/{{completedquests.id}}">{{completedquests.title | title}}</a>
+                                <br/>
+                                <small>Job Accepted on day at time</small>
+                            </td>
+                            <td class="project-completion">
+                                <small>28% Complete</small>
+                                <div class="progress progress-mini">
+                                    <div style="width: 28%;" class="progress-bar"></div>
+                                </div>
+                            </td>
+
+                            <td class="project-actions">
+                              <small>${{completedquests.reward}}</small>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+                            <td class="project-title text-center">
+                                Your have not completed any deliveries yet.
+                            </td>
+                        </tr>
+
+                    {% endif %}
+                  {% endif %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-4">
+
+
+                </div>
+                <div class="col-lg-4">
+
+
+                </div>
+                <div class="col-lg-4">
+
+                </div>
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+
+            </div>
+            <div>
+                Powered by <a href="http://earthand.co/en/" target="_blank">Earth and Co</a> &copy; 2014-2015
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+{% block scripts %}  
+<!-- Mainly scripts -->
+<script src={% static "app/js/jquery-2.1.1.js" %}></script>
+<script src={% static "app/js/bootstrap.min.js" %}></script>
+<script src={% static "app/js/plugins/metisMenu/jquery.metisMenu.js" %}></script>
+<script src={% static "app/js/plugins/slimscroll/jquery.slimscroll.min.js" %}></script>
+
+<!-- Flot -->
+<script src={% static "app/js/plugins/flot/jquery.flot.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.tooltip.min.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.spline.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.resize.js" %}></script>
+<script src={% static "app/js/plugins/flot/jquery.flot.pie.js" %}></script>
+
+<!-- Peity -->
+<script src={% static "app/js/plugins/peity/jquery.peity.min.js" %}></script>
+<script src={% static "app/js/demo/peity-demo.js" %}></script>
+
+
+<!-- Custom and plugin javascript -->
+<script src={% static "app/js/inspinia.js" %}></script>
+<script src={% static "app/js/plugins/pace/pace.min.js" %}></script>
+
+<!-- jQuery UI -->
+<script src={% static "app/js/plugins/jquery-ui/jquery-ui.min.js" %}></script>
+
+<!-- GITTER -->
+<script src={% static "app/js/plugins/gritter/jquery.gritter.min.js" %}></script>
+
+<!-- Sparkline -->
+<script src={% static "app/js/plugins/sparkline/jquery.sparkline.min.js" %}></script>
+
+<!-- Sparkline demo data  -->
+<script src={% static "app/js/demo/sparkline-demo.js" %}></script>
+
+<!-- ChartJS-->
+<script src={% static "app/js/plugins/chartJs/Chart.min.js" %}></script>
+
+<!-- Toastr -->
+<script src={% static "app/js/plugins/toastr/toastr.min.js" %}></script>
+
+<!-- Switchery -->
+<script src={% static "app/js/plugins/switchery/switchery.js" %}></script>
+
+<script>
+ var container = document.querySelector('#post-container');
+ var msnry = new Masonry( post-container, {
+      // options
+      columnWidth: 0,
+      itemSelector: '.post'
+  });
+</script>
+
+
+
+
+
+<script src={% static "js/star-rating.js" %} type="text/javascript"></script>
+
+    {% comment %}
+    ## This is for google plus based authentication ##
+           <script type="text/javascript">
+               (function () {
+                   var po = document.createElement('script');
+                   po.type = 'text/javascript';
+                   po.async = true;
+                   po.src = 'https://plus.google.com/js/client:plusone.js?onload=start';
+                   var s = document.getElementsByTagName('script')[0];
+                   s.parentNode.insertBefore(po, s);
+               })();
+           </script>           
+           {% endcomment %}
+
+           {% endblock scripts %}

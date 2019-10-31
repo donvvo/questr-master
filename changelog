@@ -1,0 +1,31 @@
+v0.01b
+# moved rabbitmq broker settings to env_var
+# hardcoded id field in questtransaction removed
+# id field in questransaction used as autofield
+# image to be displayed when PP is available and when it's not added
+# south migration users[009], quests[0023] edited manually
+# system would deny creation of quest when rabbitmq server is unreachable
+# event backend added for users and quests module
+# pricing backend restructured
+# pricing now supports custom pricing for each business/customer
+# redirection templates added for accept/decline of quests
+# resetpassword form is fixed
+# settings page design is changed
+# courier auto activation feature added, so a courier selected for a certain round would be enabled after that round of selection
+# bugfix: dropoff phone number added
+# bugfix: autofill now updates city
+# bugfix: user was able to reject quest even after timeout
+
+v0.02b
+# integrated twilio
+# default pricing for car set to $5 for meter drop $1 for per km
+# SMS notification for quest transactions configured
+# reconfigured navbar for logged in and public users
+# URL shortener created using Google URL Shortener API
+# integrated URL shortener in quest transactional SMS messages
+# code cleanup on price and quest views 
+# User Setttings layout now fully mobile compatible
+# Contact Us form mobile compatible and forms design cleaned
+# footer design cleanup
+# profile images added to nav bar
+# Login page now redirects user to the URL he was trying to browse if he's not logged in already
